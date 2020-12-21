@@ -140,7 +140,7 @@ namespace WindowsFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             Report report = new Report();
-            report.Load(@"C:\Users\Dima\Desktop\FR\frx\1.frx");
+            report.Load("1.frx");
             RichObject rich = new RichObject();
             try
             {
