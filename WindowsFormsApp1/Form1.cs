@@ -125,19 +125,20 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            comboBox1.DataSource = box;
-            comboBox1.DisplayMember = "form";
-            comboBox1.ValueMember = "id";
+            comboBoxFormat.DataSource = box;
+            comboBoxFormat.DisplayMember = "form";
+            comboBoxFormat.ValueMember = "id";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonOpen_Click(object sender, EventArgs e)
         {
+            openFileDialog1.FileName = "";
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName != null && openFileDialog1.FileName != "")
-            textBox1.Text = openFileDialog1.FileName;
+                textBox1.Text = openFileDialog1.FileName;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonConvert_Click(object sender, EventArgs e)
         {
             Report report = new Report();
             report.Load("1.frx");
@@ -146,8 +147,8 @@ namespace WindowsFormsApp1
             {
                 using (StreamReader reader = new StreamReader(openFileDialog1.FileName, Encoding.Default))
                 {
-                        rich.Text = reader.ReadToEnd();
-                        reader.Close();
+                    rich.Text = reader.ReadToEnd();
+                    reader.Close();
                 }
             }
             catch (Exception ex)
@@ -161,39 +162,40 @@ namespace WindowsFormsApp1
 
             report.Prepare();
 
-            switch(id){
+            switch (id)
+            {
                 case 0:
                     PDFExport pdf = new PDFExport();
 
-                    report.Export(pdf, "result" + comboBox1.Text);
+                    report.Export(pdf, "result" + comboBoxFormat.Text);
 
                     report.Dispose();
                     break;
                 case 1:
                     ImageExport image1 = new ImageExport();
 
-                    report.Export(image1, "result" + comboBox1.Text);
+                    report.Export(image1, "result" + comboBoxFormat.Text);
 
                     report.Dispose();
                     break;
                 case 2:
                     ImageExport image2 = new ImageExport();
 
-                    report.Export(image2, "result" + comboBox1.Text);
+                    report.Export(image2, "result" + comboBoxFormat.Text);
 
                     report.Dispose();
                     break;
                 case 3:
                     SVGExport svg = new SVGExport();
 
-                    report.Export(svg, "result" + comboBox1.Text);
+                    report.Export(svg, "result" + comboBoxFormat.Text);
 
                     report.Dispose();
                     break;
                 case 4:
                     HTMLExport html = new HTMLExport();
 
-                    report.Export(html, "result" + comboBox1.Text);
+                    report.Export(html, "result" + comboBoxFormat.Text);
 
                     report.Dispose();
                     break;
@@ -201,10 +203,10 @@ namespace WindowsFormsApp1
             Console.WriteLine("End");
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            id = Convert.ToInt32(comboBox1.SelectedValue);
-            Console.WriteLine(comboBox1.Text);
+            id = Convert.ToInt32(comboBoxFormat.SelectedValue);
+            Console.WriteLine(comboBoxFormat.Text);
         }
     }
 }
